@@ -1,0 +1,19 @@
+version: '3'
+services:
+    web:
+        build: ./containers/nginx
+        ports:
+            - "8001:80"
+        depends_on:
+            - php
+    php:
+        build: ./containers/php
+        volumes:
+            - ./src:/var/www/html
+    db:
+        build: ./containers/pgsql
+        ports:
+            - 5433:5432
+        environment:
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
